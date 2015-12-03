@@ -1,2 +1,0 @@
-# DeviceInforService
-DeviceInforService
