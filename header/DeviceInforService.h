@@ -9,6 +9,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include<string.h>
+#include<sys/socket.h>
+#include<sys/types.h>
+#include<unistd.h>
+#include<netinet/in.h>
+#include<arpa/inet.h>
+#include<signal.h>
+#include"order.h"
+
+#define SERVERPORT 12345 //服务器监听端口号
+#define LISTEN_BACKLOG 3
+
+int sockfd;  //socket 描述符
 
 #define MININAS
 #ifdef MININAS
@@ -35,8 +48,8 @@
 
 	enum DEVICE_DISK_STATUS
 	{
-		EXISTENCE = 0,
-		INEXISTENCE,
+		DEXISTENCE = 0,
+		DINEXISTENCE,
 	};
 
 	struct device_disk_infor
@@ -98,11 +111,11 @@
 		struct network_property network_property;
 	};
 
-	int set_service_property(const struct service_property data);
+	int set_service_property(const struct service_property data,struct sockaddr_in *serveraddr);
 	int get_service_property(struct service_property data);
 
 	int service_init(void);
-	int service_start(void);
+	int service_start(struct sockaddr_in *server_addr);
 	int service_stop(void);
 	int service_restart(void);
 
